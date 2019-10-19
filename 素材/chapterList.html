@@ -1,0 +1,54 @@
+﻿
+<!Doctype html>
+<html>
+<head>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/baiduTemplate.js"></script>
+</head>
+<body>
+
+<article class="blogs">
+    <h2 class="title_tj">
+    <p>文章<span>推荐</span></p>
+    </h2>
+	<div class="newblog left">
+        <!--左left开始-->
+	</div>
+</article>
+<footer>
+    <p class="ft-copyright">个人博客 Sunshine </p>
+    <div id="tbox"> <a id="togbook" href=""></a> <a id="gotop" href="javascript:void(0)"></a></div>
+</footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script>
+     $.get("/getdata",function(resObj){
+        console.log("1");
+        var dataList = JSON.parse(resObj);
+        dataList.forEach((resObj,index)=>{
+            console.log(index);
+            
+            var con = `<div class="oneblog">
+                <h2><a title="${resObj.chapterName}" href="/detail?chapterId=${resObj.chapterId}">${resObj.chapterName}</a></h2>
+            <figure><img src='${resObj.imgPath}' border='0' width='120' height='120' alt='${resObj.chapterName}'></figure>
+            <ul class="nlist">
+                <p>${resObj.chapterDes}</p>
+                <a title="${resObj.chapterName}" href="/detail?chapterId=${resObj.chapterId}" target="_blank" class="readmore">阅读全文>></a>
+            </ul>
+            <p class="dateview">
+                <span>发布时间：${resObj.publishTimer}</span>
+                <span>作者：${resObj.author}</span>
+                <span>分类：[<a href="/">悠客</a>]</span>
+                <span class="nl">浏览（101)</span>
+                <span class="n2">评论（<a href="/">0</a>）</span>
+                <div class="line"></div>
+            </p>
+        </div>`
+        $(".newblog").append(con);
+        })
+        $(".newblog").append("<div class='page'></div>");
+    })
+</script>
+</html>
